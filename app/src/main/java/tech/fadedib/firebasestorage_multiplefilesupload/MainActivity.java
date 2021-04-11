@@ -158,10 +158,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void saveImageDataToFirestore(final ProgressDialog progressDialog) {
         progressDialog.setMessage("Saving uploaded images...");
-        Map<String, String> dataMap = new HashMap<>();
-        for (int i=0; i<savedImagesUri.size(); i++){
-            dataMap.put("image"+i, savedImagesUri.get(i));
-        }
+        Map<String, Object> dataMap = new HashMap<>();
+        //Below line of code will put your images list as an array in firestore
+        dataMap.put("images", savedImagesUri);
+        //Below commented code is no more recommended..!
+        /*for (int i = 0; i < savedImagesUri.size(); i++) {
+            dataMap.put("image" + i, savedImagesUri.get(i));
+        }*/
         reference.add(dataMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
